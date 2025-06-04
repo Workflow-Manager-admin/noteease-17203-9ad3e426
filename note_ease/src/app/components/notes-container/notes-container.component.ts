@@ -18,7 +18,7 @@ export class NotesContainerComponent implements OnInit {
   searchTerm: string = '';
   selectedCategories: string[] = [];
   isEditMode = false;
-  currentNote: Partial<Note> = {};
+  currentNote: Partial<Note> & { categoryInput?: string } = {};
 
   constructor(private notesService: NotesService) {}
 
@@ -51,10 +51,11 @@ export class NotesContainerComponent implements OnInit {
 
   createNote() {
     if (this.currentNote.title && this.currentNote.content) {
+      const categories = this.processCategoryInput(this.currentNote.categoryInput);
       this.notesService.createNote({
         title: this.currentNote.title,
         content: this.currentNote.content,
-        categories: this.currentNote.categories || []
+        categories: categories
       });
       this.resetForm();
     }
@@ -62,15 +63,19 @@ export class NotesContainerComponent implements OnInit {
 
   editNote(note: Note) {
     this.isEditMode = true;
-    this.currentNote = { ...note };
+    this.currentNote = {
+      ...note,
+      categoryInput: note.categories.join(', ')
+    };
   }
 
   updateNote() {
     if (this.currentNote.id && this.currentNote.title && this.currentNote.content) {
+      const categories = this.processCategoryInput(this.currentNote.categoryInput);
       this.notesService.updateNote(this.currentNote.id, {
         title: this.currentNote.title,
         content: this.currentNote.content,
-        categories: this.currentNote.categories
+        categories: categories
       });
       this.resetForm();
     }
@@ -85,5 +90,13 @@ export class NotesContainerComponent implements OnInit {
   resetForm() {
     this.isEditMode = false;
     this.currentNote = {};
+  }
+
+  private processCategoryInput(input?: string): string[] {
+    if (!input) return [];
+    return input
+      .split(',')
+      .map(category => category.trim())
+      .filter(category => category.length > 0);
   }
 }
