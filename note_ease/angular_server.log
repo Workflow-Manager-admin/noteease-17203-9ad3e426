@@ -68,3 +68,18 @@ Application bundle generation complete. [0.413 seconds]
         ╵                           ~~~~~~~~~~~~~~~~~~~~~~~
 
 
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.013 seconds]
+
+▲ [WARNING] TS-998113: NotesContainerComponent is not used within the template of AppComponent [plugin angular-compiler]
+
+    src/app/app.component.ts:8:26:
+      8 │   imports: [RouterOutlet, NotesContainerComponent],
+        ╵                           ~~~~~~~~~~~~~~~~~~~~~~~
+
+
