@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotesService } from '../../services/notes.service';
 import { Note, NoteFilter } from '../../models/note.model';
@@ -13,18 +13,25 @@ import { Observable } from 'rxjs';
   styleUrls: ['./notes-container.component.css']
 })
 export class NotesContainerComponent implements OnInit {
-  notes$!: Observable<Note[]>;
-  categories$!: Observable<string[]>;
+  notes$: Observable<Note[]>;
+  categories$: Observable<string[]>;
   searchTerm: string = '';
   selectedCategories: string[] = [];
   isEditMode = false;
   currentNote: Partial<Note> & { categoryInput?: string } = {};
+  private isBrowser: boolean;
 
-  constructor(private notesService: NotesService) {}
+  constructor(
+    private notesService: NotesService,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+    this.notes$ = this.notesService.getNotes();
+    this.categories$ = this.notesService.getCategories();
+  }
 
   ngOnInit() {
     this.loadNotes();
-    this.categories$ = this.notesService.getCategories();
   }
 
   loadNotes() {
@@ -82,7 +89,7 @@ export class NotesContainerComponent implements OnInit {
   }
 
   deleteNote(id: string) {
-    if (confirm('Are you sure you want to delete this note?')) {
+    if (this.isBrowser && window.confirm('Are you sure you want to delete this note?')) {
       this.notesService.deleteNote(id);
     }
   }
