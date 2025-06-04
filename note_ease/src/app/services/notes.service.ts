@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Note, NoteFilter } from '../models/note.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +9,18 @@ import { Note, NoteFilter } from '../models/note.model';
 export class NotesService {
   private notes = new BehaviorSubject<Note[]>([]);
   private categories = new BehaviorSubject<string[]>([]);
+  private isBrowser: boolean;
 
-  constructor() {
-    // Load notes from localStorage on initialization
-    const savedNotes = localStorage.getItem('notes');
-    if (savedNotes) {
-      this.notes.next(JSON.parse(savedNotes));
-      this.updateCategories();
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+    
+    // Load notes from localStorage only in browser environment
+    if (this.isBrowser) {
+      const savedNotes = localStorage.getItem('notes');
+      if (savedNotes) {
+        this.notes.next(JSON.parse(savedNotes));
+        this.updateCategories();
+      }
     }
   }
 
@@ -41,7 +47,9 @@ export class NotesService {
           );
         }
 
-        return filteredNotes.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+        return filteredNotes.sort((a, b) => 
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        );
       })
     );
   }
@@ -103,7 +111,9 @@ export class NotesService {
   }
 
   private saveToLocalStorage(): void {
-    localStorage.setItem('notes', JSON.stringify(this.notes.value));
+    if (this.isBrowser) {
+      localStorage.setItem('notes', JSON.stringify(this.notes.value));
+    }
   }
 
   private updateCategories(): void {

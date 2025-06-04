@@ -98,3 +98,42 @@ Application bundle generation complete. [0.010 seconds]
 
 
 Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Browser bundles    
+Initial chunk files | Names       |  Raw size
+main.js             | main        |  22.15 kB | 
+
+
+Server bundles     
+Initial chunk files | Names       |  Raw size
+chunk-4JBCHM7P.mjs  | -           |  22.61 kB | 
+server.mjs          | server      |   1.39 kB | 
+main.server.mjs     | main.server | 800 bytes | 
+
+Application bundle generation complete. [0.278 seconds]
+
+▲ [WARNING] TS-998113: NotesContainerComponent is not used within the template of AppComponent [plugin angular-compiler]
+
+    src/app/app.component.ts:8:26:
+      8 │   imports: [RouterOutlet, NotesContainerComponent],
+        ╵                           ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Browser bundles    
+Initial chunk files | Names       |  Raw size
+main.js             | main        |  22.15 kB | 
+
+
+Server bundles     
+Initial chunk files | Names       |  Raw size
+chunk-LVHCBCY3.mjs  | -           |  22.58 kB | 
+server.mjs          | server      |   1.39 kB | 
+main.server.mjs     | main.server | 800 bytes | 
+
+Application bundle generation complete. [0.222 seconds]
+
+Page reload sent to client(s).
