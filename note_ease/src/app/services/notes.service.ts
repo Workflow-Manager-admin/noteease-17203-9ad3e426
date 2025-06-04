@@ -16,7 +16,7 @@ export class NotesService {
     
     // Load notes from localStorage only in browser environment
     if (this.isBrowser) {
-      const savedNotes = localStorage.getItem('notes');
+      const savedNotes = window.localStorage.getItem('notes');
       if (savedNotes) {
         this.notes.next(JSON.parse(savedNotes));
         this.updateCategories();
@@ -112,7 +112,7 @@ export class NotesService {
 
   private saveToLocalStorage(): void {
     if (this.isBrowser) {
-      localStorage.setItem('notes', JSON.stringify(this.notes.value));
+      window.localStorage.setItem('notes', JSON.stringify(this.notes.value));
     }
   }
 
