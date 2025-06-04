@@ -9,7 +9,9 @@ export function getLocalStorage(): Storage | null {
   return win?.localStorage || null;
 }
 
-export function getConfirm(): ((confirmMessage: string) => boolean) | null {
+type ConfirmFunction = (message: string) => boolean;
+
+export function getConfirm(): ConfirmFunction | null {
   const win = getWindow();
   return win?.confirm?.bind(win) || null;
 }

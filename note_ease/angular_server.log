@@ -294,3 +294,14 @@ main.server.mjs     | main.server | 800 bytes |
 Application bundle generation complete. [0.152 seconds]
 
 Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Server bundles     
+Initial chunk files | Names       |  Raw size
+chunk-VQARJ2NN.mjs  | -           |  24.29 kB | 
+server.mjs          | server      |   1.39 kB | 
+main.server.mjs     | main.server | 800 bytes | 
+
+Application bundle generation complete. [0.220 seconds]
+
+Page reload sent to client(s).
