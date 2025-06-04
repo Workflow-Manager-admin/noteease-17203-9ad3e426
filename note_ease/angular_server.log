@@ -244,3 +244,21 @@ main.server.mjs     | main.server | 800 bytes |
 Application bundle generation complete. [0.148 seconds]
 
 Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.269 seconds]
+
+✘ [ERROR] TS2564: Property 'notes$' has no initializer and is not definitely assigned in the constructor. [plugin angular-compiler]
+
+    src/app/components/notes-container/notes-container.component.ts:17:2:
+      17 │   notes$: Observable<Note[]>;
+         ╵   ~~~~~~
+
+
+✘ [ERROR] TS2564: Property 'categories$' has no initializer and is not definitely assigned in the constructor. [plugin angular-compiler]
+
+    src/app/components/notes-container/notes-container.component.ts:18:2:
+      18 │   categories$: Observable<string[]>;
+         ╵   ~~~~~~~~~~~
+
+

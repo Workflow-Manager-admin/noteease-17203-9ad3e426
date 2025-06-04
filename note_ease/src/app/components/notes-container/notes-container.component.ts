@@ -22,6 +22,10 @@ export class NotesContainerComponent implements OnInit {
   currentNote: Partial<Note> & { categoryInput?: string } = {};
 
   constructor(private readonly notesService: NotesService) {
+    this._initializeObservables();
+  }
+
+  private _initializeObservables(): void {
     this.notes$ = this.notesService.getNotes();
     this.categories$ = this.notesService.getCategories();
   }
