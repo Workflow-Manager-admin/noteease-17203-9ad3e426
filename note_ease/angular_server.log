@@ -153,3 +153,19 @@ main.server.mjs     | main.server | 800 bytes |
 Application bundle generation complete. [0.323 seconds]
 
 Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Browser bundles    
+Initial chunk files | Names       |  Raw size
+main.js             | main        |  23.23 kB | 
+
+
+Server bundles     
+Initial chunk files | Names       |  Raw size
+chunk-DZNRKVAX.mjs  | -           |  23.67 kB | 
+server.mjs          | server      |   1.39 kB | 
+main.server.mjs     | main.server | 800 bytes | 
+
+Application bundle generation complete. [0.205 seconds]
+
+Page reload sent to client(s).

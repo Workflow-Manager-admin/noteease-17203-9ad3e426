@@ -38,16 +38,28 @@
     ></textarea>
     <input 
       type="text" 
-      [(ngModel)]="currentNote.categories" 
+      [(ngModel)]="currentNote.categoryInput" 
       placeholder="Categories (comma-separated)"
       class="note-input"
     >
     <div class="form-actions">
       @if (isEditMode) {
-        <button (click)="updateNote()" class="btn primary">Update Note</button>
+        <button 
+          (click)="updateNote()" 
+          class="btn primary"
+          [disabled]="!currentNote.title || !currentNote.content"
+        >
+          Update Note
+        </button>
         <button (click)="resetForm()" class="btn secondary">Cancel</button>
       } @else {
-        <button (click)="createNote()" class="btn primary">Create Note</button>
+        <button 
+          (click)="createNote()" 
+          class="btn primary"
+          [disabled]="!currentNote.title || !currentNote.content"
+        >
+          Create Note
+        </button>
       }
     </div>
   </div>
@@ -55,7 +67,7 @@
   <!-- Notes List -->
   <div class="notes-list">
     @for (note of notes$ | async; track note.id) {
-      <div class="note-card">
+      <div class="note-card fade-in">
         <h3>{{ note.title }}</h3>
         <p>{{ note.content }}</p>
         <div class="note-categories">
@@ -67,6 +79,10 @@
           <button (click)="editNote(note)" class="btn secondary">Edit</button>
           <button (click)="deleteNote(note.id)" class="btn danger">Delete</button>
         </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <p>No notes found. Create your first note!</p>
       </div>
     }
   </div>
