@@ -43,3 +43,28 @@ main.server.mjs     | main.server | 800 bytes |
 
 Application bundle generation complete. [0.719 seconds]
 
+4:46:14 AM [vite] (ssr) ✨ new dependencies optimized: @angular/forms, rxjs
+4:46:14 AM [vite] (ssr) ✨ optimized dependencies changed. reloading
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Browser bundles    
+Initial chunk files | Names       |  Raw size
+main.js             | main        |  21.87 kB | 
+
+
+Server bundles     
+Initial chunk files | Names       |  Raw size
+chunk-WNMNP2TW.mjs  | -           |  22.33 kB | 
+server.mjs          | server      |   1.39 kB | 
+main.server.mjs     | main.server | 800 bytes | 
+
+Application bundle generation complete. [0.413 seconds]
+
+▲ [WARNING] TS-998113: NotesContainerComponent is not used within the template of AppComponent [plugin angular-compiler]
+
+    src/app/app.component.ts:8:26:
+      8 │   imports: [RouterOutlet, NotesContainerComponent],
+        ╵                           ~~~~~~~~~~~~~~~~~~~~~~~
+
+
