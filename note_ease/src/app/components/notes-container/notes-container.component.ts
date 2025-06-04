@@ -14,20 +14,20 @@ import { getConfirm } from '../../utils/environment';
   styleUrls: ['./notes-container.component.css']
 })
 export class NotesContainerComponent implements OnInit {
-  notes$: Observable<Note[]>;
-  categories$: Observable<string[]>;
-  searchTerm: string = '';
+  notes$!: Observable<Note[]>;
+  categories$!: Observable<string[]>;
+  searchTerm = '';
   selectedCategories: string[] = [];
   isEditMode = false;
   currentNote: Partial<Note> & { categoryInput?: string } = {};
 
-  constructor(private readonly notesService: NotesService) {
+  constructor(private readonly _notesService: NotesService) {
     this._initializeObservables();
   }
 
   private _initializeObservables(): void {
-    this.notes$ = this.notesService.getNotes();
-    this.categories$ = this.notesService.getCategories();
+    this.notes$ = this._notesService.getNotes();
+    this.categories$ = this._notesService.getCategories();
   }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class NotesContainerComponent implements OnInit {
       searchTerm: this.searchTerm,
       categories: this.selectedCategories.length ? this.selectedCategories : undefined
     };
-    this.notes$ = this.notesService.getNotes(filter);
+    this.notes$ = this._notesService.getNotes(filter);
   }
 
   onSearch(): void {
@@ -59,7 +59,7 @@ export class NotesContainerComponent implements OnInit {
   createNote(): void {
     if (this.currentNote.title && this.currentNote.content) {
       const categories = this.processCategoryInput(this.currentNote.categoryInput);
-      this.notesService.createNote({
+      this._notesService.createNote({
         title: this.currentNote.title,
         content: this.currentNote.content,
         categories: categories
@@ -79,7 +79,7 @@ export class NotesContainerComponent implements OnInit {
   updateNote(): void {
     if (this.currentNote.id && this.currentNote.title && this.currentNote.content) {
       const categories = this.processCategoryInput(this.currentNote.categoryInput);
-      this.notesService.updateNote(this.currentNote.id, {
+      this._notesService.updateNote(this.currentNote.id, {
         title: this.currentNote.title,
         content: this.currentNote.content,
         categories: categories
@@ -91,7 +91,7 @@ export class NotesContainerComponent implements OnInit {
   deleteNote(id: string): void {
     const confirm = getConfirm();
     if (confirm && confirm('Are you sure you want to delete this note?')) {
-      this.notesService.deleteNote(id);
+      this._notesService.deleteNote(id);
     }
   }
 

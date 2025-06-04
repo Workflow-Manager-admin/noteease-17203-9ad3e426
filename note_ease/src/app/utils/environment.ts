@@ -9,8 +9,7 @@ export function getLocalStorage(): Storage | null {
   return win?.localStorage || null;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function getConfirm(): ((message: string) => boolean) | null {
+export function getConfirm(): ((confirmMessage: string) => boolean) | null {
   const win = getWindow();
   return win?.confirm?.bind(win) || null;
 }
