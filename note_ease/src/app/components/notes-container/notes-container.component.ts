@@ -1,9 +1,10 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotesService } from '../../services/notes.service';
 import { Note, NoteFilter } from '../../models/note.model';
 import { Observable } from 'rxjs';
+import { getConfirm } from '../../utils/environment';
 
 @Component({
   selector: 'app-notes-container',
@@ -19,22 +20,17 @@ export class NotesContainerComponent implements OnInit {
   selectedCategories: string[] = [];
   isEditMode = false;
   currentNote: Partial<Note> & { categoryInput?: string } = {};
-  private isBrowser: boolean;
 
-  constructor(
-    private notesService: NotesService,
-    @Inject(PLATFORM_ID) platformId: Object
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
+  constructor(private readonly notesService: NotesService) {
     this.notes$ = this.notesService.getNotes();
     this.categories$ = this.notesService.getCategories();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadNotes();
   }
 
-  loadNotes() {
+  loadNotes(): void {
     const filter: NoteFilter = {
       searchTerm: this.searchTerm,
       categories: this.selectedCategories.length ? this.selectedCategories : undefined
@@ -42,11 +38,11 @@ export class NotesContainerComponent implements OnInit {
     this.notes$ = this.notesService.getNotes(filter);
   }
 
-  onSearch() {
+  onSearch(): void {
     this.loadNotes();
   }
 
-  toggleCategory(category: string) {
+  toggleCategory(category: string): void {
     const index = this.selectedCategories.indexOf(category);
     if (index === -1) {
       this.selectedCategories.push(category);
@@ -56,7 +52,7 @@ export class NotesContainerComponent implements OnInit {
     this.loadNotes();
   }
 
-  createNote() {
+  createNote(): void {
     if (this.currentNote.title && this.currentNote.content) {
       const categories = this.processCategoryInput(this.currentNote.categoryInput);
       this.notesService.createNote({
@@ -68,7 +64,7 @@ export class NotesContainerComponent implements OnInit {
     }
   }
 
-  editNote(note: Note) {
+  editNote(note: Note): void {
     this.isEditMode = true;
     this.currentNote = {
       ...note,
@@ -76,7 +72,7 @@ export class NotesContainerComponent implements OnInit {
     };
   }
 
-  updateNote() {
+  updateNote(): void {
     if (this.currentNote.id && this.currentNote.title && this.currentNote.content) {
       const categories = this.processCategoryInput(this.currentNote.categoryInput);
       this.notesService.updateNote(this.currentNote.id, {
@@ -88,13 +84,14 @@ export class NotesContainerComponent implements OnInit {
     }
   }
 
-  deleteNote(id: string) {
-    if (this.isBrowser && window.confirm('Are you sure you want to delete this note?')) {
+  deleteNote(id: string): void {
+    const confirm = getConfirm();
+    if (confirm && confirm('Are you sure you want to delete this note?')) {
       this.notesService.deleteNote(id);
     }
   }
 
-  resetForm() {
+  resetForm(): void {
     this.isEditMode = false;
     this.currentNote = {};
   }
