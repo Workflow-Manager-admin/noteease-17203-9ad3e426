@@ -305,3 +305,18 @@ main.server.mjs     | main.server | 800 bytes |
 Application bundle generation complete. [0.220 seconds]
 
 Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Browser bundles    
+Initial chunk files | Names       |  Raw size
+main.js             | main        |  23.86 kB | 
+
+
+Server bundles     
+Initial chunk files | Names       |  Raw size
+chunk-LSBCMHG3.mjs  | -           |  24.30 kB | 
+server.mjs          | server      |   1.39 kB | 
+main.server.mjs     | main.server | 800 bytes | 
+
+Application bundle generation complete. [0.250 seconds]
+
