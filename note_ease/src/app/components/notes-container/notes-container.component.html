@@ -1,0 +1,78 @@
+<div class="notes-container">
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      (input)="onSearch()" 
+      placeholder="Search notes..."
+      class="search-input"
+    >
+  </div>
+
+  <!-- Categories Filter -->
+  <div class="categories-filter">
+    @for (category of categories$ | async; track category) {
+      <button 
+        class="category-chip" 
+        [class.selected]="selectedCategories.includes(category)"
+        (click)="toggleCategory(category)"
+      >
+        {{ category }}
+      </button>
+    }
+  </div>
+
+  <!-- Note Form -->
+  <div class="note-form">
+    <input 
+      type="text" 
+      [(ngModel)]="currentNote.title" 
+      placeholder="Note title"
+      class="note-input"
+    >
+    <textarea 
+      [(ngModel)]="currentNote.content" 
+      placeholder="Note content"
+      class="note-textarea"
+    ></textarea>
+    <input 
+      type="text" 
+      [(ngModel)]="currentNote.categories" 
+      placeholder="Categories (comma-separated)"
+      class="note-input"
+    >
+    <div class="form-actions">
+      @if (isEditMode) {
+        <button (click)="updateNote()" class="btn primary">Update Note</button>
+        <button (click)="resetForm()" class="btn secondary">Cancel</button>
+      } @else {
+        <button (click)="createNote()" class="btn primary">Create Note</button>
+      }
+    </div>
+  </div>
+
+  <!-- Notes List -->
+  <div class="notes-list">
+    @for (note of notes$ | async; track note.id) {
+      <div class="note-card">
+        <h3>{{ note.title }}</h3>
+        <p>{{ note.content }}</p>
+        <div class="note-categories">
+          @for (category of note.categories; track category) {
+            <span class="category-tag">{{ category }}</span>
+          }
+        </div>
+        <div class="note-actions">
+          <button (click)="editNote(note)" class="btn secondary">Edit</button>
+          <button (click)="deleteNote(note.id)" class="btn danger">Delete</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Floating Action Button -->
+  <button class="fab" (click)="resetForm()" *ngIf="isEditMode">
+    +
+  </button>
+</div>
