@@ -233,3 +233,14 @@ main.server.mjs     | main.server | 800 bytes |
 Application bundle generation complete. [0.340 seconds]
 
 Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Server bundles     
+Initial chunk files | Names       |  Raw size
+chunk-RJNFSIHG.mjs  | -           |  24.21 kB | 
+server.mjs          | server      |   1.39 kB | 
+main.server.mjs     | main.server | 800 bytes | 
+
+Application bundle generation complete. [0.148 seconds]
+
+Page reload sent to client(s).
