@@ -1,0 +1,1 @@
+{"is_source_file": true, "file_id": 16, "git_revision": "", "state": 1, "description": "", "external_files": [], "external_methods": [], "published": [], "classes": [], "methods": [], "calls": [], "search-terms": [], "hash": "6045fbadb189e01a808ff3519512d8d7", "format-version": 4, "code-base-name": "default", "filename": "note_ease/eslint.config.mjs", "knowledge_revision": 12}
